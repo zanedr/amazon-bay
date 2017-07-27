@@ -20,12 +20,39 @@ describe("client routes", () => {
     })
   })
 
-it.skip("should return a 404 for a route that does not exist", (done) => {
+it("should return a 404 for a route that does not exist", (done) => {
     chai.request(server)
-    .get("/secretOfLife")
+    .get("/coffee")
     .end((err, response) => {
       response.should.have.status(404)
       done()
     })
   })
 })
+
+describe('API Routes', () => {
+  before((done) => {
+    database.migrate.latest()
+    .then(() => done());
+  });
+
+  beforeEach((done) => {
+    database.seed.run()
+    .then(() => {
+      done();
+    });
+  });
+
+it('GET: should return all items in db', (done) => {
+    chai.request(server)
+    .get('/items')
+    .end((err, response) => {
+      response.should.have.status(200);
+      response.should.be.json;
+      response.body.should.be.a('array');
+      response.body.length.should.equal(4);
+      response.body[0].should.have.property('title');
+      done();
+    });
+  });
+});

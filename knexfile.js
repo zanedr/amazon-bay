@@ -23,7 +23,7 @@ module.exports = {
   
   test: {
     client: 'pg',
-    connection: 'postgres://localhost/ambay',
+    connection: process.env.DATABASE_URL || 'postgres://localhost/ambay',
     useNullAsDefault: true,
     migrations: {
       directory: './db/migrations'
