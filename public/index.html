@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Reaction</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
         <link rel='stylesheet' href='/style.css' />
     </head>
     <body>
@@ -8,14 +9,14 @@
         <div id="card-container"></div>
 
         <container id="order-history">
-            <div id="order-history-information">
+            <div class="hidden" id="order-history-information">
                 <div id="order-history-title">
                 </div>
                 <div id="order-history-information-container">
                 </div>
             </div>
             <div id="order-history-sidebar">
-                <p id="order-history-sidebar-toggle">
+                <p class="sidebar-toggle" id="order-history-sidebar-toggle">
                     +
                 </p>
                 <div id="order-history-sidebar-title">
@@ -25,13 +26,13 @@
 
         <container id="shopping-cart">
             <div id="shopping-cart-sidebar">
-                <p id="shopping-cart-sidebar-toggle">
+                <p class="sidebar-toggle" id="shopping-cart-sidebar-toggle">
                     +
                 </p>
                 <div id="shopping-cart-sidebar-title">
                 </div>
             </div>
-            <div id="shopping-cart-information">
+            <div class="hidden" id="shopping-cart-information">
                 <div id="shopping-cart-title">
                 </div>
                 <div id="shopping-cart-information-container">
@@ -39,6 +40,7 @@
             </div>
         </container>
         <div id="shopping-cart"></div>
-        <script src='./index.js' type='text/js'></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src='index.js'></script>
     </body>
 </html>

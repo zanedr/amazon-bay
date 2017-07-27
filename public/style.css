@@ -1,6 +1,7 @@
 body {
     margin: 10px;
     color: peru;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #main-title {
@@ -9,10 +10,24 @@ body {
 }
 
 #card-container {
+    left: 10%;
+    align-items: center;
     border: 1px black solid;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    width: 80%;
+}
+
+.item-card {
+    border: 1px solid #333333;
+    margin: 25px;
+    height: 40vh;
+    width: 20vw;
 }
 
 #order-history {
+    display: flex;
     border: 1px red solid;
     left: 0;
     position: fixed;
@@ -20,28 +35,50 @@ body {
 }
 
 #order-history-sidebar {
+    border: 1px solid purple;
     width: 50px
 }
 
-#order-history-sidebar-toggle{
-    border: 1px solid orange;
+#order-history-information {
+    width: 300px
+}
+
+.sidebar-toggle {
+    text-align: center;
+    font-size: 36;
     height: 50px;
     margin: 0;
 }
 
+#order-history-sidebar-toggle{
+    border: 1px solid orange;
+}
+
 #shopping-cart {
     border: 1px blue solid;
+    display: flex;
     right: 0;
     position: fixed;
     height: 80%;
 }
 
 #shopping-cart-sidebar {
+    border: 1px solid brown;
     width: 50px
+}
+
+#shopping-cart-information {
+    width: 300px;
 }
 
 #shopping-cart-sidebar-toggle {
     border: 1px solid green;
-    height: 50px;
-    margin: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: static;
 }
