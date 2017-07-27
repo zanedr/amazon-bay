@@ -2,3 +2,46 @@ body {
     margin: 10px;
     color: peru;
 }
+
+#main-title {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#card-container {
+    border: 1px black solid;
+}
+
+#order-history {
+    border: 1px red solid;
+    left: 0;
+    position: fixed;
+    height: 80%;
+}
+
+#order-history-sidebar {
+    width: 50px
+}
+
+#order-history-sidebar-toggle{
+    border: 1px solid orange;
+    height: 50px;
+    margin: 0;
+}
+
+#shopping-cart {
+    border: 1px blue solid;
+    right: 0;
+    position: fixed;
+    height: 80%;
+}
+
+#shopping-cart-sidebar {
+    width: 50px
+}
+
+#shopping-cart-sidebar-toggle {
+    border: 1px solid green;
+    height: 50px;
+    margin: 0;
+}
