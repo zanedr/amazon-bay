@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+const React = require('react')
 
-export default class Main extends Component {
+
+module.exports = React.createClass({
     render() {
         return (
             <div>
-                <h1>here we go</h1>
+                <h1>here goes nuthin'</h1>
             </div>
         )
     }
-}
+})
