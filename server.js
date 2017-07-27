@@ -1,9 +1,18 @@
+require('babel-register')({
+    presets: ['react', 'es2015']
+});
+
 var express = require('express');
 var app = express();
+var React = require('react');
+var ReactDOMServer = require('react-dom/server');
+var Main = require('./components/Main.jsx')
 
 app.get('/', function(request, response) {
-    var html = '<h1>Hello World!</h1>';
-    response.send(html);
+    // var html = ReactDOMServer.renderToString(
+    //     React.createElement(Main)
+    // );
+    response.send(Main);
 });
 
 var PORT = 3000;
