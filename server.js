@@ -8,7 +8,7 @@ var app = express();
 app.use(express.static(`${__dirname}/public`));
 
 app.get('/', (req, res) => {
-    res.sendFile('index.html');
+    return res.status(200).sendFile('index.html');
 });
 
 //GET route for items
@@ -46,7 +46,7 @@ app.get('/purchasehistory', (req, res) => {
 //POST route for purchase history
 app.post('/addpurchasehistory', (req, res) => {
     console.log('body', req.body)
-//   const { price } = req.body
+  const { price } = req.body
 
   if (!price) {
     return response.status(422).send({
@@ -67,3 +67,5 @@ var PORT = 3000;
 app.listen(PORT, function() {
     console.log('http://localhost:' + PORT);
 });
+
+module.exports = app
