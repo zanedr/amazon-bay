@@ -1,9 +1,12 @@
 exports.seed = function(knex, Promise) {
-  return knex('items').del()
-    .then(() => {
-      let itemPromises = createItems(knex)
-      return Promise.all([...itemPromises])
-    });
+  return knex('purchasehistory').del()
+  .then(() => {
+    return knex('items').del()
+  })
+  .then(() => {
+    let itemPromises = createItems(knex)
+    return Promise.all([...itemPromises])
+  });
 };
 
 const createItems = (knex) => {

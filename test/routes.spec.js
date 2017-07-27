@@ -45,7 +45,7 @@ describe('API Routes', () => {
 
 it('GET: should return all items in db', (done) => {
     chai.request(server)
-    .get('api/v1//items')
+    .get('/api/v1/items')
     .end((err, response) => {
       response.should.have.status(200);
       response.should.be.json;
@@ -60,11 +60,36 @@ it('GET: should return all items in db', (done) => {
     chai.request(server)
     .get('/api/v1/purchasehistory')
     .end((err, response) => {
+        console.log(response.body)
       response.should.have.status(404);
       response.should.be.json;
       response.body.should.be.a('object');
       response.body.should.have.property('error');
       done();
+    });
+  });
+
+  it("POST: should add an entry to purchase history", (done) => {
+    chai.request(server)
+    .post("/api/v1/addpurchasehistory")
+    .send({ "price": 100 })
+    .end((err, response) => {
+        response.should.have.status(201);
+        response.body.should.be.a('object');
+        response.body.should.have.property('id');
+        done();
+    });
+  });
+
+  it("POST: should send an error if price is not included", (done) => {
+    chai.request(server)
+    .post("/api/v1/addpurchasehistory")
+    .send({ })
+    .end((err, response) => {
+        response.should.have.status(422);
+        response.body.should.be.a('object');
+        response.body.should.have.property('error');
+        done();
     });
   });
 });
