@@ -1,18 +1,19 @@
+const express = require('express');
+const app = express();
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
+const domain = process.env.DOMAIN_ENV || 'localhost:3000';
 
-var express = require('express');
-var app = express();
 
 app.use(express.static(`${__dirname}/public`));
 
 app.get('/', (req, res) => {
-    return res.status(200).sendFile('index.html');
+    return res.status(200).sendFile(__dirname + './index.html');
 });
 
 //GET route for items
-app.get('/items', (req, res) => {
+app.get('api/v1/items', (req, res) => {
   database('items').select()
   .then((items) => {
     if (!items) {
@@ -28,7 +29,7 @@ app.get('/items', (req, res) => {
 });
 
 //GET route for purchase history
-app.get('/purchasehistory', (req, res) => {
+app.get('/api/v1/purchasehistory', (req, res) => {
   database('purchasehistory').select()
   .then((purchasehistory) => {
     if (!purchasehistory.length) {
@@ -44,23 +45,23 @@ app.get('/purchasehistory', (req, res) => {
 });
 
 //POST route for purchase history
-app.post('/addpurchasehistory', (req, res) => {
+app.post('/api/v1/addpurchasehistory', (req, res) => {
     console.log('body', req.body)
-  const { price } = req.body
+  const price = req.body;
 
   if (!price) {
     return response.status(422).send({
       error: 'No price included with purchase history'
     })
   }
-//     else {
-//       database('purchashistory').insert({ price }, 'id')
-//       .then(() => {
-//         return res.status(201)
-//       }).catch((error) => {
-//         return res.status(500);
-//     });
-//     }
+    else {
+      database('purchashistory').insert({ price }, 'id')
+      .then(() => {
+        return res.status(201)
+      }).catch((error) => {
+        return res.status(500);
+    });
+    }
   });
 
 var PORT = 3000;
