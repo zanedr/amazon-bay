@@ -55,4 +55,16 @@ it('GET: should return all items in db', (done) => {
       done();
     });
   });
+
+  it('GET: purchase history should initially be empty', (done) => {
+    chai.request(server)
+    .get('/purchasehistory')
+    .end((err, response) => {
+      response.should.have.status(404);
+      response.should.be.json;
+      response.body.should.be.a('object');
+      response.body.should.have.property('error');
+      done();
+    });
+  });
 });
