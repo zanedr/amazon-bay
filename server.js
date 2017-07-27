@@ -9,7 +9,7 @@ const domain = process.env.DOMAIN_ENV || 'localhost:3000';
 app.use(express.static(`${__dirname}/public`));
 
 app.get('/', (req, res) => {
-    return res.status(200).sendFile('./index.html');
+    res.sendFile('index.html');
 });
 
 //GET route for items
