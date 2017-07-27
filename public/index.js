@@ -16,11 +16,9 @@ function retrieveCart(){
 }
 
 function retrieveItems(){
-    console.log('retrieve items')
-    fetch("/api/v1/items").then( res => {
-    res.json()
+    fetch("/api/v1/items").then(res => {
+        res.json()
       .then(info => {
-        console.log(info)
         createItemCards(info)
       });
     });
@@ -32,17 +30,13 @@ function retrieveItems(){
 
 function retrieveHistory(){
     console.log('retrieve history')
-    fetch("/api/v1/purchasehistory").then( res => {
-    res.json()
-      .then(info => {
-          if(info.length) {
-              info.forEach(item => {
-             // createHistoryCard(item)
-             console.log(item)
-              })
-          }
-        console.log(info)
-      });
+    fetch("/api/v1/purchasehistory").then(res => {
+            res.json()
+        .then((info) => {
+            if(info.length) {
+                createHistoryCard(info)
+            }
+        });
     });
 }
 
@@ -56,6 +50,16 @@ function createItemCards(info) {
                 <img class='item-picture' src='${item.picture}'>
                 <h6 class='item-price'>$${correctPrice(item.price)}</h6>
                 <button class='select-item'>Add to cart</button>
+            </div>`)
+    })
+}
+
+function createHistoryCard(info) {
+    info.forEach((item, index) => {
+        $('#order-history-information-container').append(`
+            <div class='order-history-card'>
+                <h4 class='order-history-date'>${item.created_at}</h4>
+                <h4 class='order-history-price'>$${item.price}.00</h4>
             </div>`)
     })
 }
@@ -90,8 +94,12 @@ $('#purchase-all').on('click', function(){
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({"price": totalPrice})
-    }) .then(() => {
-        
+    }) .then((res) => {
+        res.json()
+    }).then(() => {
+        retrieveHistory()
+        totalPrice = 0
+        $('#shopping-cart-information-container').innerHTML = ''
     })
 })
 

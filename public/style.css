@@ -58,7 +58,13 @@ body {
     margin: 0;
 }
 
-#order-history-sidebar-toggle{
+#order-history-information-container{
+    overflow: hidden;
+    border-bottom: 1px solid #333333;
+}
+
+.order-history-card {
+    border-top: 1px solid #333333;
 }
 
 #shopping-cart {
