@@ -45,7 +45,7 @@ describe('API Routes', () => {
 
 it('GET: should return all items in db', (done) => {
     chai.request(server)
-    .get('/items')
+    .get('api/v1//items')
     .end((err, response) => {
       response.should.have.status(200);
       response.should.be.json;
@@ -58,7 +58,7 @@ it('GET: should return all items in db', (done) => {
 
   it('GET: purchase history should initially be empty', (done) => {
     chai.request(server)
-    .get('/purchasehistory')
+    .get('/api/v1/purchasehistory')
     .end((err, response) => {
       response.should.have.status(404);
       response.should.be.json;
