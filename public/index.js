@@ -1,52 +1,47 @@
-let totalPrice
-window.onload = retrieveInformation()
+let totalPrice;
+window.onload = retrieveInformation();
 
 function retrieveInformation(){
     totalPrice = 0;
     retrieveCart();
     retrieveItems();
     retrieveHistory();
-}
+};
 
 function retrieveCart(){
   for (var key in localStorage){
     var tempObject = JSON.parse(localStorage[key])
-    console.log('TEMP', tempObject.price)
     const price = tempObject.price.toString()
     const title = tempObject.title.toString()
     addToCart(title, price);
-  }
-}
+  };
+};
 
 function retrieveItems(){
     fetch("/api/v1/items").then(res => {
-        res.json()
-      .then(info => {
-        createItemCards(info)
-      });
+            res.json()
+        .then(info => {
+            createItemCards(info);
+        });
     });
-//   for (var key in localStorage){
-//     var tempObject = JSON.parse(localStorage[key])
-//     createCard(tempObject);
-//   }
-}
+};
 
 function retrieveHistory(){
     fetch("/api/v1/purchasehistory").then(res => {
             res.json()
         .then((info) => {
             if(info.length) {
-                createHistoryCard(info)
+                createHistoryCard(info);
             }
         });
     });
-}
+};
 
 function createItem(title, price){ 
-    this.id = Date.now()
+    this.id = Date.now();
     this.title = title;
     this.price = price;
-}
+};
 
 function createItemCards(info) {
     info.forEach((item, index) => {
@@ -60,9 +55,9 @@ function createItemCards(info) {
                 <img class='item-picture' src='${item.picture}'>
                 <h6 class='item-price'>$${correctPrice(item.price)}</h6>
                 <button class='select-item'>Add to cart</button>
-            </div>`)
-    })
-}
+            </div>`);
+    });
+};
 
 function storeItem(newItem){
     var store = JSON.stringify(newItem);
@@ -92,7 +87,6 @@ function addToCart(itemTitle, itemPrice) {
             <h3>${itemTitle} ${itemPrice}</h3>
         </div>
     `)
-    console.log('ITEMPRICE', itemPrice)
     changeCartTotal(itemPrice)
 }
 
