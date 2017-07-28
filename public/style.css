@@ -1,18 +1,21 @@
 body {
     margin: 10px;
     color: black;
-    background: #CCCCCC;
+    background: #FFFFFF;
     font-family: 'Open Sans', sans-serif;
 }
 
 #main-title {
-    margin: 0 auto;
+    color: #333333;
+    font-weight: 300;
+    font-size: 48;
+    margin: 10px auto 20px;
     text-align: center;
 }
 
 #card-container {
     align-items: center;
-    background-color: #FFFFF;
+    background-color: #333333;
     border: 1px black solid;
     border-radius: 10px;
     display: flex;
@@ -53,7 +56,12 @@ body {
 
 #order-history-sidebar {
     border-left: 1px solid #333333;
+    background-color: #777777;
     width: 50px
+}
+
+#order-history-sidebar-title {
+    transform: rotate(-90deg);
 }
 
 #order-history-information {
@@ -62,6 +70,7 @@ body {
 
 .sidebar-toggle {
     border-bottom: 1px solid #333333;
+    background-color: #FFFFFF;
     text-align: center;
     font-size: 36;
     height: 50px;
@@ -89,6 +98,7 @@ body {
 
 #shopping-cart-sidebar {
     border-right: 1px solid #333333;
+    background-color: #777777;
     width: 50px
 }
 
