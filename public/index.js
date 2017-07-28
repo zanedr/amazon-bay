@@ -29,7 +29,6 @@ function retrieveItems(){
 }
 
 function retrieveHistory(){
-    console.log('retrieve history')
     fetch("/api/v1/purchasehistory").then(res => {
             res.json()
         .then((info) => {
@@ -40,8 +39,20 @@ function retrieveHistory(){
     });
 }
 
+function createItem(title, price){ 
+    this.id = date.Now()
+    this.title = title;
+    this.price = price;
+}
+
 function createItemCards(info) {
     info.forEach((item, index) => {
+        var newItem = new createItem(item.title, item.price);
+        storeItem($id, newItem);
+        function storeObject($id, newObject){
+            var store = JSON.stringify(newObject);
+            localStorage.setItem($id, store);
+            }
         $('#card-container').append(`
             <div class='item-card'>
                 <h4 class='item-title'>${item.title}</h4>
@@ -68,7 +79,6 @@ $('#card-container').on('click', '.select-item', function(){
     var itemTitle = $(this).siblings('.item-title').text()
     var itemDescription = $(this).siblings('.item-description').text()
     var itemPrice = $(this).siblings('.item-price').text()
-    console.log(itemTitle, itemDescription, itemPrice)
     addToCart(itemTitle, itemDescription, itemPrice)
 })
 
@@ -83,8 +93,6 @@ function addToCart(itemTitle, itemDescription, itemPrice) {
 
 function changeCartTotal(itemPrice) {
     let newItemPrice = itemPrice.slice(1)
-    // newItemPrice.split('').shift().join('')
-    console.log('changetotal', newItemPrice)
     totalPrice = totalPrice + parseFloat(newItemPrice)
     $('#shopping-cart-total').text('Total: $' +totalPrice + '.00')
 }
@@ -99,7 +107,8 @@ $('#purchase-all').on('click', function(){
     }).then(() => {
         retrieveHistory()
         totalPrice = 0
-        $('#shopping-cart-information-container').innerHTML = ''
+        $('#shopping-cart-total').text('Total: $' +totalPrice + '.00')
+        $('#shopping-cart-information-container').html('')
     })
 })
 

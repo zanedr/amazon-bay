@@ -1,6 +1,7 @@
 body {
     margin: 10px;
-    color: peru;
+    color: black;
+    background: #CCCCCC;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -38,7 +39,7 @@ body {
     border: 1px #333333 solid;
     left: 0;
     position: fixed;
-    height: 80%;
+    height: 100%;
 }
 
 #order-history-sidebar {
@@ -73,7 +74,7 @@ body {
     display: flex;
     right: 0;
     position: fixed;
-    height: 80%;
+    height: 100%;
 }
 
 #shopping-cart-sidebar {
