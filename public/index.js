@@ -10,9 +10,9 @@ function retrieveInformation(){
 
 function retrieveCart(){
   for (var key in localStorage){
-    var tempObject = JSON.parse(localStorage[key])
-    const price = tempObject.price.toString()
-    const title = tempObject.title.toString()
+    var tempObject = JSON.parse(localStorage[key]);
+    const price = correctPrice(tempObject.price.toString());
+    const title = tempObject.title.toString();
     addToCart(title, price);
   };
 };
