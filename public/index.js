@@ -1,18 +1,21 @@
-window.onload = retrieveInformation();
-let totalPrice = 0
+let totalPrice
+window.onload = retrieveInformation()
 
 function retrieveInformation(){
+    totalPrice = 0;
     retrieveCart();
     retrieveItems();
     retrieveHistory();
 }
 
 function retrieveCart(){
-    console.log('retrieve cart')
-//   for (var key in localStorage){
-//     var tempObject = JSON.parse(localStorage[key])
-//     createCard(tempObject);
-//   }
+  for (var key in localStorage){
+    var tempObject = JSON.parse(localStorage[key])
+    console.log('TEMP', tempObject.price)
+    const price = tempObject.price.toString()
+    const title = tempObject.title.toString()
+    addToCart(title, price);
+  }
 }
 
 function retrieveItems(){
@@ -40,7 +43,7 @@ function retrieveHistory(){
 }
 
 function createItem(title, price){ 
-    this.id = date.Now()
+    this.id = Date.now()
     this.title = title;
     this.price = price;
 }
@@ -48,11 +51,7 @@ function createItem(title, price){
 function createItemCards(info) {
     info.forEach((item, index) => {
         var newItem = new createItem(item.title, item.price);
-        storeItem($id, newItem);
-        function storeObject($id, newObject){
-            var store = JSON.stringify(newObject);
-            localStorage.setItem($id, store);
-            }
+        storeItem(newItem);
         $('#card-container').append(`
             <div class='item-card'>
                 <h4 class='item-title'>${item.title}</h4>
@@ -63,6 +62,11 @@ function createItemCards(info) {
                 <button class='select-item'>Add to cart</button>
             </div>`)
     })
+}
+
+function storeItem(newItem){
+    var store = JSON.stringify(newItem);
+    localStorage.setItem(newItem.id, store);
 }
 
 function createHistoryCard(info) {
@@ -79,15 +83,16 @@ $('#card-container').on('click', '.select-item', function(){
     var itemTitle = $(this).siblings('.item-title').text()
     var itemDescription = $(this).siblings('.item-description').text()
     var itemPrice = $(this).siblings('.item-price').text()
-    addToCart(itemTitle, itemDescription, itemPrice)
+    addToCart(itemTitle, itemPrice)
 })
 
-function addToCart(itemTitle, itemDescription, itemPrice) {
+function addToCart(itemTitle, itemPrice) {
     $('#shopping-cart-information-container').append(`
         <div class='shopping-cart-item'>
             <h3>${itemTitle} ${itemPrice}</h3>
         </div>
     `)
+    console.log('ITEMPRICE', itemPrice)
     changeCartTotal(itemPrice)
 }
 
@@ -109,6 +114,7 @@ $('#purchase-all').on('click', function(){
         totalPrice = 0
         $('#shopping-cart-total').text('Total: $' +totalPrice + '.00')
         $('#shopping-cart-information-container').html('')
+        localStorage.clear();
     })
 })
 
