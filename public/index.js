@@ -31,6 +31,7 @@ function retrieveHistory(){
             res.json()
         .then((info) => {
             if(info.length) {
+                $('#order-history-information-container').html('')
                 createHistoryCard(info);
             }
         });
@@ -66,10 +67,11 @@ function storeItem(newItem){
 
 function createHistoryCard(info) {
     info.forEach((item, index) => {
+        let fixedDate = item.created_at.slice(0, 10)
         $('#order-history-information-container').append(`
             <div class='order-history-card'>
-                <h4 class='order-history-date'>${item.created_at}</h4>
-                <h4 class='order-history-price'>$${item.price}.00</h4>
+                <h4 class='order-history-date'>Date of purchase: ${fixedDate}</h4>
+                <h4 class='order-history-price'>Price: $${item.price}.00</h4>
             </div>`)
     })
 }
@@ -84,7 +86,8 @@ $('#card-container').on('click', '.select-item', function(){
 function addToCart(itemTitle, itemPrice) {
     $('#shopping-cart-information-container').append(`
         <div class='shopping-cart-item'>
-            <h3>${itemTitle} ${itemPrice}</h3>
+            <h3>${itemTitle}</h3>
+            <h3>${itemPrice}</h3>
         </div>
     `)
     changeCartTotal(itemPrice)
