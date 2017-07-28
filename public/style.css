@@ -21,6 +21,7 @@ body {
 }
 
 .item-card {
+    background-color: #FFFFFF;
     border: 1px solid #333333;
     height: 40vh;
     margin: 25px;
