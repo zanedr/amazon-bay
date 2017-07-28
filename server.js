@@ -10,6 +10,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 
+app.set('port', process.env.PORT || 3000);
+
 app.get('/', (req, res) => {
     res.sendFile('index.html');
 });
@@ -61,9 +63,8 @@ app.post('/api/v1/addpurchasehistory', (req, res) => {
     };
   });
 
-var PORT = 3000;
-app.listen(PORT, function() {
-    console.log('http://localhost:' + PORT);
+app.listen(app.get('port'), () => {  //GET request is sent to this root/location and defining the response sent
+  console.log(`${app.locals.title} is running on ${app.get('port')}.`) //logging what port the app is running at with the name - 'app.locals.title'...logged in terminal
 });
 
 module.exports = app
