@@ -11,9 +11,8 @@ function retrieveInformation(){
 function retrieveCart(){
   for (var key in localStorage){
     var tempObject = JSON.parse(localStorage[key]);
-    const price = correctPrice(tempObject.price.toString());
     const title = tempObject.title.toString();
-    addToCart(title, price);
+    addToCart(title, tempObject.price);
   };
 };
 
@@ -23,6 +22,9 @@ function retrieveItems(){
         .then(info => {
             createItemCards(info);
         });
+    })
+    .catch((error) => {
+        console.log(error);
     });
 };
 
@@ -35,6 +37,8 @@ function retrieveHistory(){
                 createHistoryCard(info);
             }
         });
+    }).catch((error) => {
+        console.log(error);
     });
 };
 
@@ -47,7 +51,6 @@ function createItem(title, price){
 function createItemCards(info) {
     info.forEach((item, index) => {
         var newItem = new createItem(item.title, item.price);
-        storeItem(newItem);
         $('#card-container').append(`
             <div class='item-card'>
                 <h4 class='item-title'>${item.title}</h4>
@@ -61,6 +64,7 @@ function createItemCards(info) {
 };
 
 function storeItem(newItem){
+    console.log('newItem', newItem)
     var store = JSON.stringify(newItem);
     localStorage.setItem(newItem.id, store);
 }
@@ -77,11 +81,13 @@ function createHistoryCard(info) {
 }
 
 $('#card-container').on('click', '.select-item', function(){
-    var itemTitle = $(this).siblings('.item-title').text()
-    var itemDescription = $(this).siblings('.item-description').text()
-    var itemPrice = $(this).siblings('.item-price').text()
+    var itemTitle = $(this).siblings('.item-title').text();
+    var itemDescription = $(this).siblings('.item-description').text();
+    var itemPrice = $(this).siblings('.item-price').text();
+    var newItem = new createItem(itemTitle, itemPrice)
+    storeItem(newItem)
     addToCart(itemTitle, itemPrice)
-})
+});
 
 function addToCart(itemTitle, itemPrice) {
     $('#shopping-cart-information-container').append(`
@@ -113,6 +119,9 @@ $('#purchase-all').on('click', function(){
         $('#shopping-cart-information-container').html('')
         localStorage.clear();
     })
+    .catch((error) => {
+        console.log(error);
+    });
 })
 
 function correctPrice(price) {
