@@ -1,5 +1,6 @@
 let totalPrice;
-window.onload = retrieveInformation();
+window.onload = function() {retrieveInformation();
+                totalPrice = 0}
 
 function retrieveInformation(){
     totalPrice = 0;
@@ -100,16 +101,19 @@ function addToCart(itemTitle, itemPrice) {
 }
 
 function changeCartTotal(itemPrice) {
+    console.log(itemPrice)
     let newItemPrice = itemPrice.slice(1)
     totalPrice = totalPrice + parseFloat(newItemPrice)
     $('#shopping-cart-total').text('Total: $' +totalPrice + '.00')
 }
 
 $('#purchase-all').on('click', function(){
+    console.log('total price', totalPrice)
+    let currentPrice = totalPrice
     fetch('/api/v1/addpurchasehistory', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({"price": totalPrice})
+        body: JSON.stringify({"price": currentPrice})
     }) .then((res) => {
         res.json()
     }).then(() => {
